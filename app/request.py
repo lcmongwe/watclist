@@ -3,14 +3,14 @@
 # from .models import movie
 
 import urllib.request,json
-from .models import Movie,movie
+from .models import Movie
 
 # Getting api key
 api_key = None
 # Getting the movie base url
 base_url = None
 
-Movie=movie.Movie
+# Movie=movie.Movie
 
 def configure_request(app):
     global api_key,base_url
@@ -59,12 +59,12 @@ def process_results(movie_list):
         id = movie_item.get('id')
         title = movie_item.get('original_title')
         overview = movie_item.get('overview')
-        poster_path= movie_item.get('poster_path')
+        poster= movie_item.get('poster_path')
         vote_average = movie_item.get('vote_average')
         vote_count = movie_item.get('vote_count')
 
-        if poster_path:
-            movie_object = Movie(id,title,overview,poster_path,vote_average,vote_count)
+        if poster:
+            movie_object = Movie(id,title,overview,poster,vote_average,vote_count)
             movie_results.append(movie_object)
     return movie_results
 
@@ -80,11 +80,11 @@ def get_movie(id):
             id = movie_details_response.get('id')
             title = movie_details_response.get('original_title')
             overview = movie_details_response.get('overview')
-            poster_path = movie_details_response.get('poster_path')
+            poster = movie_details_response.get('poster_path')
             vote_average = movie_details_response.get('vote_average')
             vote_count = movie_details_response.get('vote_count')
 
-            movie_object = Movie(id,title,overview,poster_path,vote_average,vote_count)
+            movie_object = Movie(id,title,overview,poster,vote_average,vote_count)
 
     return movie_object
 
